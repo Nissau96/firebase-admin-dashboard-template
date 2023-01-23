@@ -1,11 +1,12 @@
 import React from 'react';
-import { BsCurrencyDollar } from 'react-icons/bs';
+// import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
-import { Stacked, Pie, Button, SparkLine } from '../components';
-import { earningData, SparklineAreaData, ecomPieChartData } from '../data/dummy';
+import { Stacked, Button, SparkLine, OrdersTable, ActiveEmployees } from '../components';
+import { earningData, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Dashboard = () => {
+    const { currentColor } = useStateContext();
     return (
         <div className='mt-12'>
             <div className='flex flex-wrap justify-center lg:flex-nowrap'>
@@ -19,7 +20,7 @@ const Dashboard = () => {
                     <div className='mt-6'>
                         <Button
                             color='white'
-                            bgColor='blue'
+                            bgColor={currentColor}
                             text='Download'
                             borderRadius='10px'
                             size='md'
@@ -46,12 +47,12 @@ const Dashboard = () => {
                     ))}
                 </div>
             </div>
-            <div className='flex flex-wrap justify-center gap-10'>
-                <div className='m-3 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-780'>
+            <div className='w-full p-8 m-3 justify-center'>
+                <div className='p-2 m-2 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:m-10 md:p-10 rounded-3xl'>
                     <div className='flex justify-between'>
                         <p className='text-xl font-semibold'>Revenue Updates</p>
                         <div className='flex items-center gap-4'>
-                            <p className='flex items-center gap-2 text-gray-600 hover:drop-shadow-xl'>
+                            <p className='flex items-center gap-2 text-gray-400 hover:drop-shadow-xl'>
                                 <span>
                                     <GoPrimitiveDot />
                                 </span>
@@ -74,27 +75,27 @@ const Dashboard = () => {
                                         23%
                                     </span>
                                 </p>
-                                <p className='mt-1 text-gray-500'>Budget</p>
+                                <p className='mt-1 text-gray-400'>Budget</p>
                             </div>
                             <div className='mt-8'>
                                 <p>
                                     <span className='text-3xl font-semibold'>$48,438</span>
                                 </p>
-                                <p className='mt-1 text-gray-500'>Expense</p>
+                                <p className='mt-1 text-gray-400'>Expense</p>
                             </div>
                             <div className='mt-5'>
                                 <SparkLine
-                                    currentColor='blue'
+                                    currentColor={currentColor}
                                     id='line-sparkline'
                                     type='Line'
                                     height='80px'
                                     width='250px'
                                     data={SparklineAreaData}
-                                    color='blue'
+                                    color={currentColor}
                                 />
                             </div>
                             <div className="mt-10">
-                                <Button color='white' bgColor="blue" text="Download Report" borderRadius="10px" />
+                                <Button color='white' bgColor={currentColor} text="Download Report" borderRadius="10px" />
                             </div>
                         </div>
                         <div>
@@ -103,6 +104,13 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <div className="w-full p-8 m-3">
+                <OrdersTable />
+            </div>
+            <div className="w-full p-8 m-3">
+                <ActiveEmployees />
+            </div>
+
         </div>
     );
 }

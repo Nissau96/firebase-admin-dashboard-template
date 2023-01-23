@@ -24,9 +24,9 @@ import {
 import { useStateContext } from './contexts/ContextProvider';
 
 const App = () => {
-    const { activeMenu } = useStateContext();
+    const { activeMenu, themeSettings, setThemeSettings, currentColor, currentMode } = useStateContext();
     return (
-        <div>
+        <div className={currentMode === 'Dark' ? 'dark' : 'light'}>
             <Router>
                 <div className='relative flex dark:bg-main-dark-bg'>
                     <div
@@ -38,7 +38,9 @@ const App = () => {
                             <button
                                 type='button'
                                 className='p-3 text-3xl text-white hover:drop-shadow-xl hover:bg-light-gray'
-                                style={{ background: 'black', borderRadius: '50%' }}>
+                                onClick={() => setThemeSettings(true)}
+                                style={{ background: currentColor, borderRadius: '50%' }}
+                            >
                                 <FiSettings />
                             </button>
                         </TooltipComponent>
@@ -53,14 +55,14 @@ const App = () => {
                         </div>
                     )}
                     <div
-                        className={`dark:bg-main-bg bg-main-bg min-h-screen w-full ${
-                            activeMenu ? 'md:ml-72' : 'flex-2'
-                        }`}>
+                        className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${activeMenu ? 'md:ml-72' : 'flex-2'
+                            }`}>
                         <div className='fixed w-full md:static bg-main-bg dark:bg-main-dark-bg navbar'>
                             <Navbar />
                         </div>
 
                         <div>
+                            {themeSettings && <ThemeSettings />}
                             <Routes>
                                 {/* Dashboard */}
                                 <Route
